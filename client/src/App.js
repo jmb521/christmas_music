@@ -1,57 +1,65 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState} from 'react'
+import Signup from './Signup'
+import Home from './Home'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 function App() {
-  const [errors, setErrors] = useState([])
-  const [name, setName] = useState("")
-  const [genre, setGenre] = useState("")
-  const [artists, setArtists] = useState([])
-  const handleOnSubmit = e => {
-    e.preventDefault()
-    fetch("/artists", {
-      method: "POST", 
-      headers: {
-        "Content-Type": "application/json"
+  const [user, setUser] = useState({})
+  // const [errors, setErrors] = useState([])
+  // const [name, setName] = useState("")
+  // const [genre, setGenre] = useState("")
+  // const [artists, setArtists] = useState([])
+  // const handleOnSubmit = e => {
+  //   e.preventDefault()
+  //   fetch("/artists", {
+  //     method: "POST", 
+  //     headers: {
+  //       "Content-Type": "application/json"
 
-      }, 
-      body: JSON.stringify({
-        artist: {
-          name, 
-          genre
-        }
-      })
-    })
-    // .then(response => response.json())
-    .then(response => {
-      if(response.ok) {
-        response.json().then(r => {
-          setArtists([...artists, r])
+  //     }, 
+  //     body: JSON.stringify({
+  //       artist: {
+  //         name, 
+  //         genre
+  //       }
+  //     })
+  //   })
+  //   // .then(response => response.json())
+  //   .then(response => {
+  //     if(response.ok) {
+  //       response.json()
+  //       .then(r => {
+  //         setArtists([...artists, r])
           
-        })
-      } 
-      else {
-        response.json()
-        .then(r => {
-          setErrors(r.errors)
-        })
-        
-        
-      //   // setErrors(response.errors)
-      }
+  //       })
+  //     } 
+  //     else {
+  //       response.json()
+  //       .then(r => {
+  //         setErrors(r.errors)
+  //       })
+  //     }
        
-    })
+  //   })
  
-    .catch(errors => {
-      console.log(errors)
-    })
-  }
+  //   .catch(errors => {
+  //     console.log(errors)
+  //   })
+  // }
 
 
   
   return (
     <div className="App">
-      <h3>Add new Artist</h3>
+      <Router>
+          <Routes>
+            <Route path="/signup" element={<Signup setUser={setUser} />}/>
+            <Route path="/" element={<Home />} />
+            
+          </Routes>
+      </Router>
+      {/* <h3>Add new Artist</h3>
       <ul>
       {errors ? errors.map(e => <li>{e}</li>) : null}
       </ul>
@@ -64,7 +72,7 @@ function App() {
         <br />
         <input type="submit" name="submit" />
       </form>
-      {artists ? artists.map(a => <p>{a.name}</p>) : null}
+      {artists ? artists.map(a => <p>{a.name}</p>) : null} */}
     </div>
   );
 }

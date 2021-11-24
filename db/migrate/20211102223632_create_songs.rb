@@ -6,7 +6,7 @@ class CreateSongs < ActiveRecord::Migration[6.1]
       t.string :runtime
       t.integer :year
       t.belongs_to :artist
-
+      t.belongs_to :album
       t.timestamps
     end
   end
